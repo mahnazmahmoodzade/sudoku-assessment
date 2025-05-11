@@ -1,0 +1,15 @@
+<table>
+    <tr *ngFor="let row of board; let rowIndex = index">
+        <td *ngFor="let cell of row; let colIndex = index">
+            <input [value]="cell === 0 ?'' : cell" 
+            type="number"
+            [readonly]="isPreFilled(rowIndex, colIndex)"
+            max="9"
+            min="1"
+            maxlength="1"
+            (input)="onCellInput($event, rowIndex, colIndex)"
+            >
+        </td>
+    </tr>
+</table>
+
