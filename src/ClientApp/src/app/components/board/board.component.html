@@ -1,3 +1,15 @@
+<div class="difficulty-selector">
+    <label for="difficulty">Difficulty: </label>
+    <select id="difficulty" (change)="onDifficultyChange($event)">
+        <option *ngFor="let diff of difficulties" 
+                [value]="diff"
+                [selected]="diff === selectedDifficulty">
+             {{Difficulty[diff]}}
+        </option>
+    </select>
+</div>
+
+
 <table>
     <tr *ngFor="let row of board; let rowIndex = index">
         <td *ngFor="let cell of row; let colIndex = index">

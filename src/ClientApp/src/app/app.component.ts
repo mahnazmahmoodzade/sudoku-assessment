@@ -4,10 +4,10 @@ import { BoardComponent } from "./components/board/board.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, BoardComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'ClientApp';
+  title = 'SudokuApp';
 }
