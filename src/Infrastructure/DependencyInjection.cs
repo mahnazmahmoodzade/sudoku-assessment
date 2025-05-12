@@ -9,6 +9,6 @@ public static class DependencyInjection
 {
     public static void AddInfrastructureServices(this IHostApplicationBuilder builder)
     {
-	    builder.Services.AddHttpClient<ISudokuProvider, SudokuProvider>();
+	    builder.Services.AddHttpClient<ISudokuService, SudokuService>();
 	}
 }

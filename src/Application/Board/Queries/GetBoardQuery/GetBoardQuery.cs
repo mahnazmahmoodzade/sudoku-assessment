@@ -1,4 +1,4 @@
-﻿using SudokuApp.Application.Common.Interfaces;
+﻿ using SudokuApp.Application.Common.Interfaces;
 using SudokuApp.Domain.Enums;
 
 namespace SudokuApp.Application.Board.Queries.GetBoardQuery;
@@ -9,14 +9,14 @@ public record GetBoardQuery(Difficulty Difficulty) : IRequest<BoardDto>
 
 public class GetBoardQueryHandler : IRequestHandler<GetBoardQuery, BoardDto>
 {
-	private readonly ISudokuProvider _sudokuProvider;
-	public GetBoardQueryHandler(ISudokuProvider sudokuProvider)
+	private readonly ISudokuService _sudokuService;
+	public GetBoardQueryHandler(ISudokuService sudokuService)
 	{
-		_sudokuProvider = sudokuProvider;
+		_sudokuService = sudokuService;
 	}
 	public Task<BoardDto> Handle(GetBoardQuery request, CancellationToken cancellationToken)
 	{
-		return _sudokuProvider.GetBoardAsync(request.Difficulty);
+		return _sudokuService.GetBoardAsync(request.Difficulty);
 	}
 }
 

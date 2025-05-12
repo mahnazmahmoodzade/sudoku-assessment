@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { SudokuService } from '../../services/sudoku.service';
 import { CommonModule } from '@angular/common';
 import { Difficulty } from '../../models/difficulty.enum';
+import { Board } from '../../models/board.model';
 
 @Component({
   selector: 'app-board',
@@ -10,11 +11,11 @@ import { Difficulty } from '../../models/difficulty.enum';
   styleUrl: './board.component.scss',
 })
 export class BoardComponent {
-  board: number[][] = [];
+  board: Board=[];
   difficulties = Object.values(Difficulty).filter(value => typeof value === 'number');
   selectedDifficulty: Difficulty = Difficulty.Easy;
   Difficulty = Difficulty;
-
+  message: string = '';
   constructor(private sudokuService: SudokuService) {}
 
   ngOnInit() {
@@ -35,17 +36,37 @@ export class BoardComponent {
 
   onDifficultyChange(event: Event): void {
     const select = event.target as HTMLSelectElement;
-  const value = Number(select.value); // safely convert string to number
+  const value = Number(select.value); 
   if (!isNaN(value)) {
     this.selectedDifficulty = value as Difficulty;
     this.generateBoard(this.selectedDifficulty);
   }
   }
 
-  // Add this method to generate board based on difficulty
   generateBoard(difficulty: Difficulty): void {
     this.sudokuService.getBoard(difficulty).subscribe((response) => {
       this.board = response.board;
+    });
+  }
+
+  validate(){
+    this.sudokuService.validate(this.board).subscribe((response) => {
+      if (response.status === 'solved') {
+        this.message = 'Sudoku is valid';
+      } else {
+        this.message = 'Sudoku is invalid';
+      }
+    });
+  }
+
+  solve(){
+    this.sudokuService.solve(this.board).subscribe((response) => {
+      if (response.status === 'solved') {
+        this.board = response.solution;
+        this.message = 'Sudoku is solved';
+      } else {
+        this.message = 'Sudoku is not solved';
+      }
     });
   }
 }

@@ -1,3 +1,7 @@
+<button (click)="validate()">Validate</button>
+<button (click)="solve()">Solve</button>
+<p >{{message}}</p>
+
 <div class="difficulty-selector">
     <label for="difficulty">Difficulty: </label>
     <select id="difficulty" (change)="onDifficultyChange($event)">

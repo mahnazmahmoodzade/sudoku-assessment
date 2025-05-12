@@ -40,6 +40,70 @@
           }
         }
       }
+    },
+    "/api/Boards/validate": {
+      "post": {
+        "tags": [
+          "Boards"
+        ],
+        "operationId": "ValidateBoard",
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidateBoardQuery"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationResultDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Boards/solve": {
+      "post": {
+        "tags": [
+          "Boards"
+        ],
+        "operationId": "SolveBoard",
+        "requestBody": {
+          "x-name": "request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolveBoardCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SolveResultDto"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -75,6 +139,67 @@
           2,
           3
         ]
+      },
+      "ValidationResultDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "status": {
+            "type": "string"
+          }
+        }
+      },
+      "ValidateBoardQuery": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "board": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        }
+      },
+      "SolveResultDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "solution": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        }
+      },
+      "SolveBoardCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "board": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        }
       }
     },
     "securitySchemes": {
